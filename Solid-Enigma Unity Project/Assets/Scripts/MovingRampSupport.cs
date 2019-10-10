@@ -4,27 +4,22 @@ using UnityEngine;
 
 public class MovingRampSupport : MonoBehaviour
 {
-    private float moveSpeed = 0.1f;
+    public float moveSpeed = 1f;
+
+    private float verticalInput;
+    private Rigidbody2D rigidbody;
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Hello World");
-        
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    //Use fixed update for pjysics code, because we need to be careful
+    //about how often we call hardware intensive, physics stuff.
+    private void FixedUpdate()
     {
-        // if the player presses up arrow, 
-        // we move the sqare up.
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.Translate(0, moveSpeed, 0);
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.Translate(0, -moveSpeed, 0);
-        }
-        
+        verticalInput = Input.GetAxis("Vertical");
+        rigidbody.velocity = new Vector2(0, verticalInput * moveSpeed);
     }
 }
