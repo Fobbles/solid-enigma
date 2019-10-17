@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovingRampSupport : MonoBehaviour
 {
     public float moveSpeed = 1f;
-
+    public string inputAxis;
     private float verticalInput;
     private Rigidbody2D rigidbody;
 
@@ -15,11 +15,17 @@ public class MovingRampSupport : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
     }
 
+    private void Update()
+    {
+        verticalInput = Input.GetAxis(inputAxis);
+    }
+
+
     //Use fixed update for pjysics code, because we need to be careful
     //about how often we call hardware intensive, physics stuff.
     private void FixedUpdate()
     {
-        verticalInput = Input.GetAxis("Vertical");
+       
         rigidbody.velocity = new Vector2(0, verticalInput * moveSpeed);
     }
 }
