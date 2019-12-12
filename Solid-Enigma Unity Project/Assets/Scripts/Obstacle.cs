@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Obstacle : MonoBehaviour
 {
@@ -23,6 +24,20 @@ public class Obstacle : MonoBehaviour
             audioSource.Play();
             Debug.Log("The Player Has Touched The Obstical!");
             GameOver.IsGameOver = true;
+            Time.timeScale = 0;
+        }
+
+    }
+
+    private void Restart()
+    {
+
+        if (GameOver.IsGameOver = true && Input.GetKeyDown(KeyCode.R))
+        {
+            Time.timeScale = 1;
+
+            SceneManager.LoadScene("GameScene");
         }
     }
+
 }
